@@ -1,18 +1,18 @@
 
 services:
   dns-server:
-    container_name: dns-server  # Explicit container name; useful for static references but limits reusability
+    container_name: dns-server  # Explicit container name; useful for referencing
 
-    hostname: dns1  # Sets internal hostname; only useful in specific network scenarios (e.g., host-aware logging)
+    hostname: dns1  # Sets internal hostname; useful for host-aware logging and other use cases
 
-    image: technitium/dns-server:13.5.0  # Use a specific version for consistency; consider updating if security patches exist
+    image: technitium/dns-server:13.5.0  # Use a specific version for consistency/stability; technitium tends to release updates every week or so.
 
     network_mode: "host"  # Allows the DNS server to bind directly to host ports (required for port 53 UDP/TCP on host)
 
     volumes:
-      - config:/etc/dns  # Persist DNS server configuration and data; as an alternative you can use a bind mount for ease of use
+      - config:/etc/dns  # Persist DNS server configuration and data; as an alternative you can use a bind mount.
 
-    restart: unless-stopped  # Automatically restart container unless manually stopped; attempts persistence across reboots
+    restart: unless-stopped  # Automatically restart container unless manually stopped; attempts persistence across reboots.
 
 volumes:
-  config:  # Declares a named volume used to store persistent data for the DNS server
+  config:  # Declares a named volume used to store persistent data for the app container
